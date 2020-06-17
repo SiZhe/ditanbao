@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Utils\QiniuUtils;
+use App\Tools\Utils\QiniuUtils;
 
 class Stall extends Model {
 	

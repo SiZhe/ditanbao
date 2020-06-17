@@ -22,8 +22,8 @@ class CreateStallsTable extends Migration
             $table->string('name', 64)->nullable();
             $table->string('cover')->nullable();
             $table->text('desc')->nullable();
-            $table->text('lon')->nullable();
-            $table->text('lat')->nullable();
+            $table->string('lon')->nullable();
+            $table->string('lat')->nullable();
             $table->smallInteger('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
