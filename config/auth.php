@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Administrator;
+use App\Models\User;
 
 return [
 
@@ -49,9 +50,8 @@ return [
         ],
         
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-            'hash' => false,
+            'driver' => 'passport',
+            'provider' => 'users'
         ],
     ],
 

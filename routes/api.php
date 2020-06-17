@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['namespace' => 'api\publics', 'prefix' => 'publics'], function() {
+    Route::post('register', 'LoginController@register');
+    Route::post('login', 'LoginController@login');
+    Route::post('quick-login', 'LoginController@quickLogin');
+});
+
+Route::group(['namespace' => 'api\cs', 'prefix' => 'cs', 'middleware' => ['auth:api']], function(){
+    Route::get('profile', 'DefaultController@profile');
 });
