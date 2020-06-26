@@ -12,6 +12,7 @@ class ApiController extends Controller {
     protected const ERROR_LOGIN_FAILED = '10004';
     protected const ERROR_ACCOUNT_DISABLED = '10005';
     protected const ERROR_GET_ACCESS_TOKEN = '10006';
+    protected const ERROR_STALL_EXIST = '10007';
     
     protected static $errors = [
         self::ERROR_PARAMETER => '参数错误',
@@ -20,6 +21,7 @@ class ApiController extends Controller {
         self::ERROR_LOGIN_FAILED => '登录失败',
         self::ERROR_ACCOUNT_DISABLED => '账户已禁用',
         self::ERROR_GET_ACCESS_TOKEN => 'accessToken获取失败',
+        self::ERROR_STALL_EXIST => '您已有摊位',
     ];
     
     public function respOK($response = null) {

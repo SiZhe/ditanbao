@@ -2,14 +2,82 @@
 
 namespace App\Http\Controllers\api\cs;
 
-use App\Models\Category;
 use App\Http\Resources\CategoryResource;
 use App\Models\Stall;
+use Illuminate\Support\Facades\Request;
+use App\Tools\Utils\QiniuUtils;
+use App\Tools\Utils\RedisGeoUtils;
+use App\Http\Resources\StallResource;
+use App\Http\Resources\StallCollection;
+use App\Events\VisitorEvent;
 
-class CategoryController extends BaseController {
+class StallController extends BaseController {
     
     public function index() {
+        /*
+         * 马家庄卫生室
+         * lon: 115.057093
+         * lat: 37.946312
+         * 
+         * 信誉楼商厦
+         * lon: 115.06799
+         * lat： 38.023416
+         */
+        $lon = Request::input('lon');
+        $lat = Request::input('lat');
+        $categoryId = Request::input('categoryId');
+        $name = Request::input('name');
         $stalls = Stall::where('status', Stall::STATUS_OPENING);
-        return $this->respOk(CategoryResource::collection($categories));
+        if(!is_null($categoryId)) {
+            $stalls = $stalls->where('category_id', $categoryId);
+        }
+        if(!is_null($name)) {
+            $stalls = $stalls->where('name', 'like', '%'.$categoryId.'%');
+        }
+        $rgu = new RedisGeoUtils();
+        $stallIds = $rgu->geoNearFind($lon, $lat);
+        $stalls = $stalls->whereIn('id', $stallIds)->paginate(30);
+        return $this->respOk(new StallCollection($stalls));
+	}
+	
+	public function store() {
+	    $user = $this->user;
+	    $input = Request::input();
+	    if($user->stall) {
+	        return $this->error(self::ERROR_STALL_EXIST);
+	    }
+	    if(is_null($input['categoryId']) OR is_null($input['name'])) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    $cover = null;
+	    if(Request::file('cover')) {
+	        $cover = QiniuUtils::save(Request::file('cover'));
+	    }
+	    $stall = Stall::create([
+	        'user_id' => $this->user->id,
+	        'category_id' => $input['categoryId'],
+	        'name' => $input['name'],
+	        'cover' => $cover,
+	        'desc' => $input['desc'],
+	        'status' => Stall::STATUS_REST,
+	    ]);
+	    if($stall) {
+	        return $this->respOK();
+	    }
+	    return $this->error(self::ERROR_OPERATION);
+	    
+	}
+	
+	public function update($id) {
+	    ;
+	}
+	
+	public function show($id) {
+	    $stall = Stall::find($id);
+	    if(is_null($stall)) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    event(new VisitorEvent($this->user, $stall));
+	    return $this->respOK(new StallResource($stall));
 	}
 }
