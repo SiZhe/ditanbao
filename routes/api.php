@@ -21,4 +21,7 @@ Route::group(['namespace' => 'api\publics', 'prefix' => 'publics'], function() {
 
 Route::group(['namespace' => 'api\cs', 'prefix' => 'cs', 'middleware' => ['auth:api']], function(){
     Route::get('profile', 'DefaultController@profile');
+    Route::get('categories', 'CategoryController@index');
+    Route::get('stalls', 'StallController@index');
+    Route::post('stalls', 'StallController@store');
 });
