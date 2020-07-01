@@ -22,6 +22,7 @@ Route::group(['namespace' => 'api\publics', 'prefix' => 'publics'], function() {
 Route::group(['namespace' => 'api\cs', 'prefix' => 'cs', 'middleware' => ['auth:api']], function(){
     Route::get('profile', 'DefaultController@profile');
     Route::get('categories', 'CategoryController@index');
-    Route::get('stalls', 'StallController@index');
-    Route::post('stalls', 'StallController@store');
+    Route::resource('stalls', 'StallController', ['only' => ['index', 'store', 'show', 'update']]);
+    Route::resource('stalls.certifications', 'StallController', ['only' => ['store']]);
+    Route::resource('stalls.products', 'ProductController', ['only' => ['index', 'store']]);
 });
