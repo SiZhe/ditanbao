@@ -22,7 +22,8 @@ class VisitorEvent
      * @return void
      */
     public function __construct(User $user, Stall $stall) {
-        
+        $this->user = $user;
+        $this->stall = $stall;
     }
 
     /**

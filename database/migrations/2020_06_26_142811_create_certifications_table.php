@@ -19,7 +19,7 @@ class CreateCertificationsTable extends Migration
             $table->foreign('stall_id')->references('id')->on('stalls');
             $table->string('fullname')->nullable();
             $table->string('card')->nullable();
-            $table->string('status')->nullable();
+            $table->smallInteger('status')->default(1);
             $table->timestamps();
         });
     }

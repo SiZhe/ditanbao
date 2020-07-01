@@ -6,6 +6,7 @@ use App\Events\VisitorEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Carbon\Carbon;
+use App\Models\Visitor;
 
 class VisitorListener {
     /**
@@ -29,7 +30,6 @@ class VisitorListener {
             'stall_id' => $event->stall->id,
             'visited_at' => Carbon::now()->today()
         ];
-        
-        
+        Visitor::create($data);
     }
 }
