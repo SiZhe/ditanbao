@@ -28,4 +28,5 @@ Route::group(['namespace' => 'api\cs', 'prefix' => 'cs', 'middleware' => ['auth:
     Route::resource('stalls', 'StallController', ['only' => ['index', 'store', 'show', 'update']]);
     Route::resource('stalls.certifications', 'StallController', ['only' => ['store']]);
     Route::resource('stalls.products', 'ProductController', ['only' => ['index', 'store']]);
+    Route::post('feedback', 'FeedbackController@store');
 });
