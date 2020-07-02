@@ -75,9 +75,9 @@
         	</div>
         	<div class="card-body">
         		<div class="row">
-        		@foreach($stall->followers as $follower)
+        		@foreach($stall->users as $user)
     				<div>
-    					<img class="rounded-circle" src="{{ $follower->user->avatarUrl('65x65') }}" width="65" height="65">
+    					<img class="rounded-circle" src="{{ $user->avatarUrl('65x65') }}" width="65" height="65">
     				</div>
         		@endforeach
         		</div>

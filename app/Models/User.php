@@ -15,6 +15,10 @@ class User extends Authenticatable {
 	public function stall() {
 	    return $this->hasOne('App\Models\Stall');
 	}
+	
+	public function stalls() {
+	    return $this->belongsToMany('App\Models\Stall');
+	}
 
 	public function avatarUrl($dimension = null) {
 	    return QiniuUtils::getUrl($this->avatar, $dimension);

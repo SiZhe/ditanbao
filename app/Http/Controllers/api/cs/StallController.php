@@ -67,8 +67,33 @@ class StallController extends BaseController {
 	    
 	}
 	
-	public function update($id) {
+	public function update($stall) {
 	    ;
+	}
+	
+	public function open($stall) {
+	    if(is_null($stall)) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    if(is_null(Request::input('lon')) OR is_null(Request::input('lat'))) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    $stall->lon = Request::input('lon');
+	    $stall->lat = Request::input('lat');
+	    $stall->status = Stall::STATUS_OPENING;
+	    $stall->save();
+	    $redis = new RedisGeoUtils();
+	    $redis->geoAdd($stall->id, $stall->lon, $stall->lat);
+	    return $this->respOK();
+	}
+	
+	public function rest($stall) {
+	    if(is_null($stall)) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    $stall->status = Stall::STATUS_REST;
+	    $stall->save();
+	    return $this->respOK();
 	}
 	
 	public function show($id) {

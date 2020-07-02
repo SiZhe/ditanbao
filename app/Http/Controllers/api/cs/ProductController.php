@@ -21,7 +21,7 @@ class ProductController extends BaseController {
 	public function store($stallId) {
 	    $stall = Stall::find($stallId);
 	    if(is_null($stall)) {
-	        return $this->error(self::ERROR_STALL_NOT_EXIST);
+	        return $this->error(self::ERROR_PARAMETER);
 	    }
 	    $input = Request::input();
 	    if(is_null($input['name']) OR !Request::hasFile('thumbnail')) {

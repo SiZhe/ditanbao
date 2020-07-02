@@ -21,8 +21,8 @@ class Stall extends Model {
 	    return $this->hasMany('App\Models\Product');
 	}
 	
-	public function followers() {
-	    return $this->hasMany('App\Models\Follower');
+	public function users() {
+	    return $this->belongsToMany('App\Models\User');
 	}
 	
 	public function coverUrl($dimension = null) {
