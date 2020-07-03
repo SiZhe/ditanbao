@@ -14,7 +14,8 @@ class ApiController extends Controller {
     protected const ERROR_GET_ACCESS_TOKEN = '10006';
     protected const ERROR_STALL_EXIST = '10007';
     protected const ERROR_STALL_NOT_EXIST = '10008';
-    protected const ERROR_CERTIFICATION_EXIST = '10008';
+    protected const ERROR_CERTIFICATION_EXIST = '10009';
+    protected const ERROR_STALL_NOT_OPEN = '10010';
     
     protected static $errors = [
         self::ERROR_PARAMETER => '参数错误',
@@ -26,6 +27,7 @@ class ApiController extends Controller {
         self::ERROR_STALL_EXIST => '您已有摊位',
         self::ERROR_STALL_NOT_EXIST => '摊位不存在',
         self::ERROR_CERTIFICATION_EXIST => '认证已存在',
+        self::ERROR_STALL_NOT_OPEN => '摊位未开通',
     ];
     
     public function respOK($response = null) {

@@ -23,6 +23,7 @@ Route::group(['namespace' => 'api\cs', 'prefix' => 'cs', 'middleware' => ['auth:
     Route::group(['prefix' => 'me'], function(){
         Route::get('profile', 'DefaultController@profile');
         Route::get('stalls', 'DefaultController@stalls');
+        Route::post('version', 'DefaultController@version');
     });
     Route::get('categories', 'CategoryController@index');
     Route::resource('stalls', 'StallController', ['only' => ['index', 'store', 'show', 'update']]);
