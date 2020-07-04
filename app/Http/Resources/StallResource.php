@@ -24,8 +24,11 @@ class StallResource extends JsonResource {
             'desc' => $this->desc,
             'lon' => $this->lon,
             'lat' => $this->lat,
-            'status' => $this->status,
+            'status' => $this->status,,
+            'todayVisitors' => $this->todayVisitors->count(),
+            'todayUsers' => $this->todayUsers->count(),
             'products' => $this->when(!$this->list, ProductResource::collection($this->products))
         ];
     }
 }
+

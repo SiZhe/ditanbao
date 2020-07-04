@@ -6,11 +6,21 @@ use App\Http\Resources\UserResource;
 use App\Http\Resources\StallCollection;
 use Illuminate\Support\Facades\Request;
 use App\Models\User;
+use App\Http\Resources\StallResource;
+use Carbon\Carbon;
 
 class DefaultController extends BaseController {
     
     public function profile() {
         return $this->respOk(new UserResource($this->user));
+	}
+	
+	public function stall() {
+	    $user = $this->user;
+	    if(is_null($user->stall)) {
+	        return $this->error(self::ERROR_STALL_NOT_OPEN);
+	    }
+	    return $this->respOK(new StallResource($user->stall));
 	}
 	
 	public function stalls() {

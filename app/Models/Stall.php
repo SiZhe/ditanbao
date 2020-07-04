@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Tools\Utils\QiniuUtils;
+use Carbon\Carbon;
 
 class Stall extends Model {
 	
@@ -23,6 +24,19 @@ class Stall extends Model {
 	
 	public function users() {
 	    return $this->belongsToMany('App\Models\User');
+	}
+	
+	public function visitors() {
+	    return $this->hasMany('App\Models\Visitor');
+	}
+	
+	public function todayVisitors() {
+	    return $this->visitors()->where('visited_at', '>', Carbon::now()->today());
+	}
+	
+	public function todayUsers() {
+	    $userIds = StallUser::where('stall_id', $this->id)->where('created_at', '>', Carbon::now()->today())->pluck('id');
+	    return User::whereIn('id', $userIds);
 	}
 	
 	public function coverUrl($dimension = null) {

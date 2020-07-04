@@ -9,6 +9,7 @@ use App\Tools\Utils\RedisGeoUtils;
 use App\Http\Resources\StallResource;
 use App\Http\Resources\StallCollection;
 use App\Events\VisitorEvent;
+use App\Http\Resources\UserResource;
 
 class StallController extends BaseController {
     
@@ -103,5 +104,14 @@ class StallController extends BaseController {
 	    }
 	    event(new VisitorEvent($this->user, $stall));
 	    return $this->respOK(new StallResource($stall));
+	}
+	
+	public function fans($id) {
+	    $stall = Stall::find($id);
+	    if(is_null($stall)) {
+	        return $this->error(self::ERROR_PARAMETER);
+	    }
+	    $fans = $stall->users->paginate(30);
+	    return $this->respOK(UserResource::collection($fans));
 	}
 }
