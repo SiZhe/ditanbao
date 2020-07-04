@@ -19,6 +19,7 @@ class CreateStallsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories');
+            $table->string('number')->nullable();
             $table->string('name', 64)->nullable();
             $table->string('cover')->nullable();
             $table->text('desc')->nullable();
