@@ -26,7 +26,7 @@
 				<tr>
 					<td>{{ $user->id }}</td>
 					<td><img alt="" src="{{ $user->avatarUrl() }}" width="60"></td>
-					<td>{{ $user->nickname }}</td>
+					<td><a href="{{ url('backend/users/'.$user->id) }}">{{ $user->nickname }}</a></td>
 					<td>{{ $user->cellphone }}</td>
 					<td>{{ $user->created_at->format('Y-m-d H:i') }}</td>
 					<td></td>

@@ -14,7 +14,7 @@ Route::group(array('namespace' => 'backend', 'prefix' => 'backend', 'as' => 'bac
     Route::model('stall', Stall::class);
     
     Route::get('/', 'DefaultController@index');
-    Route::resource('users', 'UserController', ['only' => ['index']]);
+    Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
     Route::resource('categories', 'CategoryController');
     Route::resource('stalls', 'StallController');
     Route::resource('feedbacks', 'FeedbackController');
