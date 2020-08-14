@@ -34,27 +34,27 @@
     		</li>
     		<hr class="sidebar-divider">
     		<div class="sidebar-heading">客户</div>
+            <li class="nav-item @if(starts_with(Request::path(), 'backend/categories') !== false) active @endif">
+                <a class="nav-link" href="{{ url('backend/categories') }}">
+                    <i class="fas fa-fw fa-cogs"></i>
+                    <span>分类管理</span>
+                </a>
+            </li>
             <li class="nav-item @if(starts_with(Request::path(), 'backend/users') !== false) active @endif">
                 <a class="nav-link" href="{{ url('backend/users') }}">
                     <i class="fas fa-fw fa-users"></i>
                     <span>用户管理</span>
                 </a>
             </li>
-            <li class="nav-item @if(starts_with(Request::path(), 'backend/categories') !== false) active @endif">
-                <a class="nav-link" href="{{ url('backend/categories') }}">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>分类管理</span>
-                </a>
-            </li>
             <li class="nav-item @if(starts_with(Request::path(), 'backend/stalls') !== false) active @endif">
                 <a class="nav-link" href="{{ url('backend/stalls') }}">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-table"></i>
                     <span>摊位管理</span>
                 </a>
             </li>
             <li class="nav-item @if(starts_with(Request::path(), 'backend/feedbacks') !== false) active @endif">
                 <a class="nav-link" href="{{ url('backend/feedbacks') }}">
-                    <i class="fas fa-fw fa-users"></i>
+                    <i class="fas fa-fw fa-paper-plane"></i>
                     <span>反馈管理</span>
                 </a>
             </li>
